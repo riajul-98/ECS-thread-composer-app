@@ -50,7 +50,7 @@ This project utilises GitHub Actions to build and push a Docker image containing
 
 ## Architecture Diagram
 
-![alt text](<architecture.png>)
+![alt text](<architecture_new.png>)
 
 ## Installation
 1. Create a repository on GitHub and clone it locally.
