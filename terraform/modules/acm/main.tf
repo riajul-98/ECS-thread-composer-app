@@ -1,3 +1,4 @@
+# Setting up ACM for Load Balancer
 resource "cloudflare_dns_record" "acm_cert_validation" {
   zone_id    = var.zone_id
   name       = tolist(aws_acm_certificate.cert.domain_validation_options)[0].resource_record_name

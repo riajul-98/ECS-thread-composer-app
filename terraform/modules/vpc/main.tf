@@ -1,3 +1,4 @@
+# Creating new VPC
 resource "aws_vpc" "project_vpc" {
   cidr_block = "10.0.0.0/16"
   enable_dns_hostnames = true 
@@ -7,6 +8,7 @@ resource "aws_vpc" "project_vpc" {
   }
 }
 
+# Creating 2 public subnets and 2 private subnets
 resource "aws_subnet" "public_subnet_1" {
   vpc_id     = aws_vpc.project_vpc.id
   availability_zone = "eu-west-2a"
@@ -47,6 +49,7 @@ resource "aws_subnet" "private_subnet_2" {
   }
 }
 
+# Creating Internet Gateway and attaching to VPC
 resource "aws_internet_gateway" "igw" {
   vpc_id = aws_vpc.project_vpc.id
   tags = {
@@ -54,6 +57,7 @@ resource "aws_internet_gateway" "igw" {
   }
 }
 
+# Creating route table for public resources
 resource "aws_route_table" "route_table" {
   vpc_id = aws_vpc.project_vpc.id
   route {
@@ -65,6 +69,7 @@ resource "aws_route_table" "route_table" {
   }
 }
 
+# Attaching Routes
 resource "aws_route_table_association" "pub_subnet1_route_assoc" {
   subnet_id      = aws_subnet.public_subnet_1.id
   route_table_id = aws_route_table.route_table.id
@@ -75,10 +80,12 @@ resource "aws_route_table_association" "pub_subnet2_route_assoc" {
   route_table_id = aws_route_table.route_table.id
 }
 
+# Provisioning Elastic IP for the NAT Gateway
 resource "aws_eip" "nat_eip" {
   domain = "vpc"
 }
 
+# Creating a NAT gateway
 resource "aws_nat_gateway" "project_nat" {
   subnet_id     = aws_subnet.public_subnet_1.id
   allocation_id = aws_eip.nat_eip.id
@@ -88,6 +95,7 @@ resource "aws_nat_gateway" "project_nat" {
   depends_on = [aws_internet_gateway.igw]
 }
 
+# Creating route table for private resources
 resource "aws_route_table" "priv_route_table" {
   vpc_id = aws_vpc.project_vpc.id
   route {
@@ -99,6 +107,7 @@ resource "aws_route_table" "priv_route_table" {
   }
 }
 
+# Attaching Routes
 resource "aws_route_table_association" "private_subnet1_assoc" {
   subnet_id      = aws_subnet.private_subnet_1.id
   route_table_id = aws_route_table.priv_route_table.id 

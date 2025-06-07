@@ -1,3 +1,4 @@
+# Creating Security Group for ECS tasks
 resource "aws_security_group" "ecs_sg" {
   name        = "ecs_sg"
   description = "Allow HTTP traffic from the load balancer"
@@ -16,6 +17,7 @@ resource "aws_security_group" "ecs_sg" {
   }
 }
 
+# Provisioning ECS Cluster
 resource "aws_ecs_cluster" "project_cluster" {
   name = "project_cluster"
   setting {
@@ -24,6 +26,7 @@ resource "aws_ecs_cluster" "project_cluster" {
   }
 }
 
+# ECS Task Definition
 resource "aws_ecs_task_definition" "ecs_task_definition" {
   family             = "project_task_definition"
   execution_role_arn = var.iam_role_arn
@@ -49,6 +52,7 @@ resource "aws_ecs_task_definition" "ecs_task_definition" {
   }
 }
 
+# ECS service
 resource "aws_ecs_service" "ecs_project_service" {
   name            = "ecs_project_service"
   cluster         = aws_ecs_cluster.project_cluster.id

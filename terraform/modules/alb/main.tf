@@ -1,3 +1,4 @@
+# Creating a target group
 resource "aws_lb_target_group" "project_alb_tg" {
   name     = "tf-example-lb-tg"
   target_type = "ip"
@@ -9,6 +10,7 @@ resource "aws_lb_target_group" "project_alb_tg" {
   }
 }
 
+# Security Group for ALB with HTTP and HTTPS access
 resource "aws_security_group" "alb_sg" {
   name        = "project_alb_sg"
   description = "Allow all incoming traffic on ports 443 and 80"
@@ -36,6 +38,7 @@ resource "aws_security_group" "alb_sg" {
   }
 }
 
+# Creating the ALB
 resource "aws_lb" "project_alb" {
   name               = "project-alb"
   subnets            = var.pub_subnet_id
@@ -46,6 +49,7 @@ resource "aws_lb" "project_alb" {
   }
 }
 
+# Creating HTTP listener for ALB
 resource "aws_lb_listener" "project_alb_listeners" {
   load_balancer_arn = aws_lb.project_alb.arn
   protocol          = "HTTP"
@@ -56,6 +60,7 @@ resource "aws_lb_listener" "project_alb_listeners" {
   }
 }
 
+# Creating HTTPS lsitener for ALB
 resource "aws_lb_listener" "HTTPS" {
   load_balancer_arn = aws_lb.project_alb.arn
   port              = "443"

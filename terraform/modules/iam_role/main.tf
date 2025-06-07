@@ -1,3 +1,4 @@
+# Creating IAM role for ECS tasks to access ECR image
 resource "aws_iam_role" "ecs_task_execution_role" {
   name = "ecsTaskExecutionRole"
 
@@ -13,6 +14,7 @@ resource "aws_iam_role" "ecs_task_execution_role" {
   })
 }
 
+# Attaching policy to IAM role
 resource "aws_iam_role_policy_attachment" "ecs_execution_policy" {
   role       = aws_iam_role.ecs_task_execution_role.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"

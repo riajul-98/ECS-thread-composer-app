@@ -1,10 +1,13 @@
+# Build Stage
 FROM node:24-alpine AS build
 
 WORKDIR /app
 
-COPY ./ECS-app/ .
+COPY ./app/ .
 
 RUN yarn install && yarn build
+
+# Run Stage
 
 FROM node:24-alpine
 
