@@ -1,5 +1,9 @@
 # Threat Composer App
-This project utilises GitHub Actions to build and push a Docker image containing the AWS Threat Composer tool and push it to Amazon Elastic Container Registry (ECR). Once pushed, Terraform is used to build the infrastructure on AWS including VPC, subnets, IGW, ALB, ECS tasks, etc as well as setting up the DNS records on Cloudflare.
+This application is a visual modelling tool which helps security professionals create threat models for applications and systems running on AWS, making it easier to identify, understand and mitigate potential security threats early on in the development lifecycle.
+
+## Architecture Diagram
+
+![alt text](<architecture_new.png>)
 
 ## Pre-requisites
 - AWS account.
@@ -47,10 +51,6 @@ This project utilises GitHub Actions to build and push a Docker image containing
 └── README.md 
 
 ```
-
-## Architecture Diagram
-
-![alt text](<architecture_new.png>)
 
 ## Installation
 1. Create a repository on GitHub and clone it locally.

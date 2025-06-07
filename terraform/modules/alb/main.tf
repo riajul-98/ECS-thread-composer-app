@@ -2,7 +2,7 @@
 resource "aws_lb_target_group" "project_alb_tg" {
   name     = "tf-example-lb-tg"
   target_type = "ip"
-  port     = 3000
+  port     = var.ecs_port
   protocol = "HTTP"
   vpc_id   = var.vpc_id
   tags = {
@@ -19,14 +19,14 @@ resource "aws_security_group" "alb_sg" {
     Name = "project_alb_sg"
   }
   ingress {
-    from_port   = 80
-    to_port     = 80
+    from_port   = var.http_ingress_ports
+    to_port     = var.http_ingress_ports
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
   ingress {
-    from_port   = 443
-    to_port     = 443
+    from_port   = var.https_ingress_ports
+    to_port     = var.https_ingress_ports
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
@@ -34,7 +34,7 @@ resource "aws_security_group" "alb_sg" {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = var.SG_outgoing
   }
 }
 
@@ -53,7 +53,7 @@ resource "aws_lb" "project_alb" {
 resource "aws_lb_listener" "project_alb_listeners" {
   load_balancer_arn = aws_lb.project_alb.arn
   protocol          = "HTTP"
-  port              = "80"
+  port              = var.listener_http_port
   default_action {
     type             = "forward"
     target_group_arn = aws_lb_target_group.project_alb_tg.arn
@@ -63,7 +63,7 @@ resource "aws_lb_listener" "project_alb_listeners" {
 # Creating HTTPS lsitener for ALB
 resource "aws_lb_listener" "HTTPS" {
   load_balancer_arn = aws_lb.project_alb.arn
-  port              = "443"
+  port              = var.listener_https_port
   protocol          = "HTTPS"
   ssl_policy        = "ELBSecurityPolicy-2016-08"
   certificate_arn   = var.certificate_arn

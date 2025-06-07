@@ -7,3 +7,15 @@ variable "zone_id" {
 variable "domain_name" {
   type = string
 }
+
+# TTL
+variable "time_to_live" {
+  type = number
+  description = "Time to Live"
+}
+
+# Subdomain
+variable "subdomain" {
+  type = string
+  description = "subdomain of your domain"
+}

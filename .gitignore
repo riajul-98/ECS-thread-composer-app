@@ -5,3 +5,4 @@
 **/*.tfstate.*
 **/*.lock.hcl
 **/*.tfvars
+**/*.env

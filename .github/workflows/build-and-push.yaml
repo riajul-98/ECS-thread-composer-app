@@ -16,6 +16,19 @@ jobs:
         username: ${{ secrets.AWS_ACCESS_KEY_ID }}
         password: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+
+    - name: Build and export to Docker
+      uses: docker/build-push-action@v6
+      with:
+        load: true
+        tags: test
+
+    - name: Test
+      run: |
+        docker run --rm test
+
     - name: Build and push
       uses: docker/build-push-action@v6
       with:

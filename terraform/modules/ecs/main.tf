@@ -4,8 +4,8 @@ resource "aws_security_group" "ecs_sg" {
   description = "Allow HTTP traffic from the load balancer"
   vpc_id      = var.vpc_id
   ingress {
-    from_port       = 3000
-    to_port         = 3000
+    from_port       = var.ecs_port
+    to_port         = var.ecs_port
     protocol        = "tcp"
     security_groups = [var.alb_sg_id]
   }
@@ -13,7 +13,7 @@ resource "aws_security_group" "ecs_sg" {
     from_port = 0
     to_port = 0
     protocol = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = var.SG_outgoing
   }
 }
 
@@ -30,18 +30,18 @@ resource "aws_ecs_cluster" "project_cluster" {
 resource "aws_ecs_task_definition" "ecs_task_definition" {
   family             = "project_task_definition"
   execution_role_arn = var.iam_role_arn
-  requires_compatibilities = ["FARGATE"]
+  requires_compatibilities = [ var.ecs_launch_type ]
   network_mode = "awsvpc"
-  cpu = 256
-  memory = 512
+  cpu = var.number_of_cpu
+  memory = var.mem
   container_definitions = jsonencode([
     {
       name  = "threat-composer"
       image = var.container_image
       portMappings = [
         {
-          containerPort = 3000
-          hostPort      = 3000
+          containerPort = var.ecs_port
+          hostPort      = var.ecs_port
           protocol      = "tcp"
         }
       ]
@@ -56,9 +56,9 @@ resource "aws_ecs_task_definition" "ecs_task_definition" {
 resource "aws_ecs_service" "ecs_project_service" {
   name            = "ecs_project_service"
   cluster         = aws_ecs_cluster.project_cluster.id
-  launch_type = "FARGATE"
+  launch_type = var.ecs_launch_type
   task_definition = aws_ecs_task_definition.ecs_task_definition.arn
-  desired_count   = 2
+  desired_count   = var.desired_number
   network_configuration {
     subnets          = var.priv_sub_id
     assign_public_ip = false
@@ -67,7 +67,7 @@ resource "aws_ecs_service" "ecs_project_service" {
   load_balancer {
     target_group_arn = var.target_group_arn
     container_name   = "threat-composer"
-    container_port   = 3000
+    container_port   = var.ecs_port
   }
   tags = {
     Name = "ecs_project_service"
