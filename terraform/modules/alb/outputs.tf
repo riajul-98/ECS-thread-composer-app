@@ -1,0 +1,20 @@
+output "alb_dns" {
+  description = "alb_dns_name"
+  value       = aws_lb.project_alb.dns_name
+}
+
+output "target_group_arn" {
+  value = aws_lb_target_group.project_alb_tg.arn
+}
+
+output "alb_sg_id" {
+  value = aws_security_group.alb_sg.id
+}
+
+output "http_listener_arn" {
+  value = aws_lb_listener.project_alb_listeners.arn
+}
+
+output "https_listener_arn" {
+  value = aws_lb_listener.HTTPS.arn
+}
