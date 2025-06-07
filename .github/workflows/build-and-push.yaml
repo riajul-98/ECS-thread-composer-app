@@ -22,7 +22,7 @@ jobs:
     - name: Build and export to Docker
       uses: docker/build-push-action@v6
       with:
-        load: true
+        load: false
         tags: test
 
     - name: Test
