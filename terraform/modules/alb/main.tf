@@ -1,10 +1,10 @@
 # Creating a target group
 resource "aws_lb_target_group" "project_alb_tg" {
-  name     = "tf-example-lb-tg"
+  name        = "tf-example-lb-tg"
   target_type = "ip"
-  port     = var.ecs_port
-  protocol = "HTTP"
-  vpc_id   = var.vpc_id
+  port        = var.ecs_port
+  protocol    = "HTTP"
+  vpc_id      = var.vpc_id
   tags = {
     Name = "project_alb_tg"
   }

@@ -10,12 +10,12 @@ variable "domain_name" {
 
 # TTL
 variable "time_to_live" {
-  type = number
+  type        = number
   description = "Time to Live"
 }
 
 # Subdomain
 variable "subdomain" {
-  type = string
+  type        = string
   description = "subdomain of your domain"
 }

@@ -1,8 +1,8 @@
 # Creating new VPC
 resource "aws_vpc" "project_vpc" {
-  cidr_block = var.vpc_cidr
-  enable_dns_hostnames = true 
-  enable_dns_support = true
+  cidr_block           = var.vpc_cidr
+  enable_dns_hostnames = true
+  enable_dns_support   = true
   tags = {
     Name = "project_vpc"
   }
@@ -10,40 +10,40 @@ resource "aws_vpc" "project_vpc" {
 
 # Creating 2 public subnets and 2 private subnets
 resource "aws_subnet" "public_subnet_1" {
-  vpc_id     = aws_vpc.project_vpc.id
+  vpc_id            = aws_vpc.project_vpc.id
   availability_zone = "eu-west-2a"
-  depends_on = [aws_vpc.project_vpc]
-  cidr_block = "10.0.1.0/24"
+  depends_on        = [aws_vpc.project_vpc]
+  cidr_block        = "10.0.1.0/24"
   tags = {
     Name = "project_pub_sub1"
   }
 }
 
 resource "aws_subnet" "public_subnet_2" {
-  vpc_id     = aws_vpc.project_vpc.id
+  vpc_id            = aws_vpc.project_vpc.id
   availability_zone = "eu-west-2b"
-  depends_on = [aws_vpc.project_vpc]
-  cidr_block = "10.0.3.0/24"
+  depends_on        = [aws_vpc.project_vpc]
+  cidr_block        = "10.0.3.0/24"
   tags = {
     Name = "project_pub_sub2"
   }
 }
 
 resource "aws_subnet" "private_subnet_1" {
-  vpc_id     = aws_vpc.project_vpc.id
+  vpc_id            = aws_vpc.project_vpc.id
   availability_zone = "eu-west-2a"
-  depends_on = [aws_vpc.project_vpc]
-  cidr_block = "10.0.2.0/24"
+  depends_on        = [aws_vpc.project_vpc]
+  cidr_block        = "10.0.2.0/24"
   tags = {
     Name = "project_priv_sub1"
   }
 }
 
 resource "aws_subnet" "private_subnet_2" {
-  vpc_id     = aws_vpc.project_vpc.id
+  vpc_id            = aws_vpc.project_vpc.id
   availability_zone = "eu-west-2b"
-  depends_on = [aws_vpc.project_vpc]
-  cidr_block = "10.0.4.0/24"
+  depends_on        = [aws_vpc.project_vpc]
+  cidr_block        = "10.0.4.0/24"
   tags = {
     Name = "project_priv_sub2"
   }
@@ -110,10 +110,10 @@ resource "aws_route_table" "priv_route_table" {
 # Attaching Routes
 resource "aws_route_table_association" "private_subnet1_assoc" {
   subnet_id      = aws_subnet.private_subnet_1.id
-  route_table_id = aws_route_table.priv_route_table.id 
+  route_table_id = aws_route_table.priv_route_table.id
 }
 
 resource "aws_route_table_association" "private_subnet2_assoc" {
   subnet_id      = aws_subnet.private_subnet_2.id
-  route_table_id = aws_route_table.priv_route_table.id 
+  route_table_id = aws_route_table.priv_route_table.id
 }

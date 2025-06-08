@@ -7,14 +7,14 @@ variable "alb_dns" {
 }
 
 variable "record_type" {
-  type = string
+  type    = string
   default = "CNAME"
 }
 
 variable "time_to_live" {
-  type = number
+  type        = number
   description = "Time to Live"
-  default = 300
+  default     = 300
 }
 
 variable "subdomain" {

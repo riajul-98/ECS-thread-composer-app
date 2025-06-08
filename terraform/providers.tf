@@ -1,4 +1,5 @@
 terraform {
+  required_version = "1.9.8"
   required_providers {
     # Initialising AWS as a provider
     aws = {

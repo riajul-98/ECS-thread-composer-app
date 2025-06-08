@@ -1,12 +1,12 @@
 # Cloudflare Zone ID
 variable "zone_id" {
   description = "Cloudflare domain zoneID"
-  type = string
+  type        = string
 }
 
 # ECR Container Image URI
 variable "container_image" {
-  type = string
+  type        = string
   description = "URI of the ECR image to deploy"
 }
 
@@ -15,55 +15,39 @@ variable "domain_name" {
   type = string
 }
 
-variable "backend_bucket" {
-  description = "S3 bucket which contains state file"
-  type = string
-}
-
-variable "region" {
-  description = "AWS Region to deploy resources"
-  type = string
-  default = "eu-west-2"
-}
-
-variable "bucket_key" {
-  description = "Bucket key"
-  type = string
-}
-
 variable "ecs_port" {
   description = "Port where ECS tasks are listening"
-  type = number
+  type        = number
 }
 
 variable "time_to_live" {
-  type = number
+  type        = number
   description = "Time to Live"
-  default = 300
+  default     = 300
 }
 
 variable "subdomain" {
-  type = string
+  type        = string
   description = "subdomain of your domain"
 }
 
 variable "ecs_launch_type" {
   description = "Fargate or EC2"
-  type = string
+  type        = string
 }
 
 variable "desired_number" {
   description = "Desired number of ECS tasks"
-  type = number
-  default = 2
+  type        = number
+  default     = 2
 }
 
 variable "number_of_cpu" {
-  description = "Number of ECS CPUs"  
-  type = number
+  description = "Number of ECS CPUs"
+  type        = number
 }
 
 variable "mem" {
   description = "Memory allocation for ECS"
-  type = number
+  type        = number
 }

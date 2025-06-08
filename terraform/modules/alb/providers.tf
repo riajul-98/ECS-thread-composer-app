@@ -6,11 +6,5 @@ terraform {
       source  = "hashicorp/aws"
       version = "6.0.0-beta2"
     }
-
-    # Initialising Cloudflare as a provider
-    cloudflare = {
-      source  = "cloudflare/cloudflare"
-      version = "5.5.0"
-    }
   }
 }

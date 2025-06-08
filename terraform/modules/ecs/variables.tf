@@ -32,30 +32,30 @@ variable "https_listener_arn" {
 
 variable "ecs_port" {
   description = "listening port on ECS"
-  type = number
+  type        = number
 }
 
 variable "ecs_launch_type" {
   description = "Fargate or EC2"
-  type = string
+  type        = string
 }
 
 variable "desired_number" {
   description = "Desired number of tasks"
-  type = number
+  type        = number
 }
 
 variable "number_of_cpu" {
-  description = "Number of ECS CPUs"  
-  type = number
+  description = "Number of ECS CPUs"
+  type        = number
 }
 
 variable "mem" {
   description = "Memory allocation for ECS"
-  type = number
+  type        = number
 }
 
 variable "SG_outgoing" {
-  type = list(string)
-  default = [ "0.0.0.0/0" ]
+  type    = list(string)
+  default = ["0.0.0.0/0"]
 }

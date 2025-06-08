@@ -10,9 +10,9 @@ resource "aws_security_group" "ecs_sg" {
     security_groups = [var.alb_sg_id]
   }
   egress {
-    from_port = 0
-    to_port = 0
-    protocol = "-1"
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
     cidr_blocks = var.SG_outgoing
   }
 }
@@ -28,12 +28,12 @@ resource "aws_ecs_cluster" "project_cluster" {
 
 # ECS Task Definition
 resource "aws_ecs_task_definition" "ecs_task_definition" {
-  family             = "project_task_definition"
-  execution_role_arn = var.iam_role_arn
-  requires_compatibilities = [ var.ecs_launch_type ]
-  network_mode = "awsvpc"
-  cpu = var.number_of_cpu
-  memory = var.mem
+  family                   = "project_task_definition"
+  execution_role_arn       = var.iam_role_arn
+  requires_compatibilities = [var.ecs_launch_type]
+  network_mode             = "awsvpc"
+  cpu                      = var.number_of_cpu
+  memory                   = var.mem
   container_definitions = jsonencode([
     {
       name  = "threat-composer"
@@ -56,7 +56,7 @@ resource "aws_ecs_task_definition" "ecs_task_definition" {
 resource "aws_ecs_service" "ecs_project_service" {
   name            = "ecs_project_service"
   cluster         = aws_ecs_cluster.project_cluster.id
-  launch_type = var.ecs_launch_type
+  launch_type     = var.ecs_launch_type
   task_definition = aws_ecs_task_definition.ecs_task_definition.arn
   desired_count   = var.desired_number
   network_configuration {

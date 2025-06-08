@@ -12,33 +12,33 @@ variable "vpc_id" {
 
 variable "ecs_port" {
   description = "Port where ECS tasks are listening"
-  type = number
+  type        = number
 }
 
 variable "listener_http_port" {
-  type = number
+  type    = number
   default = 80
 }
 
 variable "listener_https_port" {
-  type = number
+  type    = number
   default = 443
 }
 
 variable "SG_outgoing" {
-  type = list(string)
+  type        = list(string)
   description = "Allow outgoing traffic from the specified CIDR"
-  default = [ "0.0.0.0/0" ]
+  default     = ["0.0.0.0/0"]
 }
 
 variable "http_ingress_ports" {
   description = "Security group incoming http port"
-  type = number
-  default = 80
+  type        = number
+  default     = 80
 }
 
 variable "https_ingress_ports" {
   description = "Security group incoming https port"
-  type = number
-  default = 443
+  type        = number
+  default     = 443
 }
