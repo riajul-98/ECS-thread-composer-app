@@ -3,7 +3,7 @@ This application is a visual modelling tool which helps security professionals c
 
 ## Architecture Diagram
 
-![alt text](<architecture_new.png>)
+![alt text](<architecture.png>)
 
 ## Pre-requisites
 - AWS account.
