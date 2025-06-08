@@ -58,9 +58,6 @@ This application is a visual modelling tool which helps security professionals c
 
 ## Installation
 1. Create a repository on GitHub and clone it locally.
-```
-git clone https://github.com/.../example-repo.git
-```
 
 2. Change directories into your repository directory.
 ```
@@ -113,7 +110,7 @@ terraform plan
 terraform apply
 ```
 
-10. Check if the application has deployed by typing in https://tm.<domain_name> in your browser. You should see the below;
+10. Check if the application has deployed by typing in https://tm.domain_name in your browser. You should see the below;
 
 ![alt text](<threat_composer.png>)
 

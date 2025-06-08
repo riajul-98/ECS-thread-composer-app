@@ -42,3 +42,8 @@ variable "https_ingress_ports" {
   type        = number
   default     = 443
 }
+
+variable "alb_sg_ingress_cidr" {
+  type = list(string)
+  default = ["0.0.0.0/0"]
+}

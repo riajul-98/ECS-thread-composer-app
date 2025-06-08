@@ -11,9 +11,9 @@ resource "aws_vpc" "project_vpc" {
 # Creating 2 public subnets and 2 private subnets
 resource "aws_subnet" "public_subnet_1" {
   vpc_id            = aws_vpc.project_vpc.id
-  availability_zone = "eu-west-2a"
+  availability_zone = var.availability_zones[0]
   depends_on        = [aws_vpc.project_vpc]
-  cidr_block        = "10.0.1.0/24"
+  cidr_block        = var.subnet_CIDRs[0]
   tags = {
     Name = "project_pub_sub1"
   }
@@ -21,9 +21,9 @@ resource "aws_subnet" "public_subnet_1" {
 
 resource "aws_subnet" "public_subnet_2" {
   vpc_id            = aws_vpc.project_vpc.id
-  availability_zone = "eu-west-2b"
+  availability_zone = var.availability_zones[1]
   depends_on        = [aws_vpc.project_vpc]
-  cidr_block        = "10.0.3.0/24"
+  cidr_block        = var.subnet_CIDRs[2]
   tags = {
     Name = "project_pub_sub2"
   }
@@ -31,9 +31,9 @@ resource "aws_subnet" "public_subnet_2" {
 
 resource "aws_subnet" "private_subnet_1" {
   vpc_id            = aws_vpc.project_vpc.id
-  availability_zone = "eu-west-2a"
+  availability_zone = var.availability_zones[0]
   depends_on        = [aws_vpc.project_vpc]
-  cidr_block        = "10.0.2.0/24"
+  cidr_block        = var.subnet_CIDRs[1]
   tags = {
     Name = "project_priv_sub1"
   }
@@ -41,9 +41,9 @@ resource "aws_subnet" "private_subnet_1" {
 
 resource "aws_subnet" "private_subnet_2" {
   vpc_id            = aws_vpc.project_vpc.id
-  availability_zone = "eu-west-2b"
+  availability_zone = var.availability_zones[1]
   depends_on        = [aws_vpc.project_vpc]
-  cidr_block        = "10.0.4.0/24"
+  cidr_block        = var.subnet_CIDRs[3]
   tags = {
     Name = "project_priv_sub2"
   }

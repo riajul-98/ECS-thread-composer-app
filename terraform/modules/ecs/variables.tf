@@ -59,3 +59,9 @@ variable "SG_outgoing" {
   type    = list(string)
   default = ["0.0.0.0/0"]
 }
+
+variable "container_name" {
+  type = string
+  description = "Name which you want to name your container"
+  default = "threat-composer"
+}

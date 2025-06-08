@@ -36,7 +36,7 @@ resource "aws_ecs_task_definition" "ecs_task_definition" {
   memory                   = var.mem
   container_definitions = jsonencode([
     {
-      name  = "threat-composer"
+      name  = var.container_name
       image = var.container_image
       portMappings = [
         {
@@ -66,7 +66,7 @@ resource "aws_ecs_service" "ecs_project_service" {
   }
   load_balancer {
     target_group_arn = var.target_group_arn
-    container_name   = "threat-composer"
+    container_name   = var.container_name
     container_port   = var.ecs_port
   }
   tags = {

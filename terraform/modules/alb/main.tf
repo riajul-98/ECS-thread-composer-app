@@ -22,13 +22,13 @@ resource "aws_security_group" "alb_sg" {
     from_port   = var.http_ingress_ports
     to_port     = var.http_ingress_ports
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = var.alb_sg_ingress_cidr
   }
   ingress {
     from_port   = var.https_ingress_ports
     to_port     = var.https_ingress_ports
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = var.alb_sg_ingress_cidr
   }
   egress {
     from_port   = 0
