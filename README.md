@@ -31,6 +31,7 @@ This application is a visual modelling tool which helps security professionals c
         └── alb/
             └── main.tf
             └── outputs.tf
+            └── providers.tf
             └── variables.tf
         └── domain/
             └── main.tf
@@ -38,13 +39,16 @@ This application is a visual modelling tool which helps security professionals c
             └── variables.tf
         └── ecs/
             └── main.tf
+            └── providers.tf
             └── variables.tf
         └── iam_role/
             └── main.tf
             └── outputs.tf
+            └── providers.tf
         └── vpc/ 
             └── main.tf
             └── outputs.tf
+            └── providers.tf
 ├── dockerfile
 ├── .github/workflows/
     └── build-and-push.yaml
@@ -90,9 +94,16 @@ export CLOUDFLARE_API_TOKEN="API_token_here"
 
 8. Change the bucket name to your bucket name in `./terraform/providers.tf` and create a .tfvars file which contains the below;
 ```
-domain_name     = "example.com"
-zone_id         = "zone_id_here"
-container_image = "container_image_here"
+domain_name     = 
+zone_id         = 
+container_image = 
+ecs_port        = 
+subdomain       = 
+ecs_launch_type = 
+desired_number  = 
+number_of_cpu   = 
+mem             = 
+
 ```
 
 9. Deploy your infrastructure.
@@ -107,6 +118,7 @@ terraform apply
 ![alt text](<threat_composer.png>)
 
 ## Potential issues
-1. Pipeline failing to build - Could be due to many issues, check failure message
+1. Pipeline failing to build - Could be due to many issues, check failure message.
 2. ECS tasks not being able to pull the image - You may already have an IAM role with the same name which does not contain the correct permissions.
 3. Terraform failing to build - User tied to the access keys may not have the correct permissions for the specific services / resources.
+4. Terraform hanging at the ACM request stage - Cancel the command using `ctrl + c` and then running another `terraform apply`.
