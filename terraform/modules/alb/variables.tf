@@ -44,6 +44,6 @@ variable "https_ingress_ports" {
 }
 
 variable "alb_sg_ingress_cidr" {
-  type = list(string)
+  type    = list(string)
   default = ["0.0.0.0/0"]
 }

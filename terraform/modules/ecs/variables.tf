@@ -61,7 +61,7 @@ variable "SG_outgoing" {
 }
 
 variable "container_name" {
-  type = string
+  type        = string
   description = "Name which you want to name your container"
-  default = "threat-composer"
+  default     = "threat-composer"
 }
