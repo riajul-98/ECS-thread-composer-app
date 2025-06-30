@@ -21,3 +21,26 @@ jobs:
       with:
         push: true
         tags: ${{ secrets.REGISTRY }}:latest
+
+  Trivvy-scan:
+    name: Run Trivy Vulnerability Scan
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    
+      - name: Run Trivy Scanner
+        uses: aquasecurity/trivy-action@0.28.0
+        with:
+          image-ref: ${{ secrets.REGISTRY }}:latest
+          format: 'sarif'
+          output: 'trivy-results.sarif'
+
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: eu-west-2
+
+      - name: Upload Trivy scan results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: 'trivy-results.sarif'
