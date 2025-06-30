@@ -24,10 +24,10 @@ jobs:
 
   Trivvy-scan:
     name: Run Trivy Vulnerability Scan
-    needs: build
+    needs: build-and-push
     runs-on: ubuntu-latest
     steps:
-    
+
       - name: Run Trivy Scanner
         uses: aquasecurity/trivy-action@0.28.0
         with:
