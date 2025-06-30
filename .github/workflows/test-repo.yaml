@@ -1,4 +1,4 @@
-name: Test repo 
+name: Test repo with Trivy
 on: 
   workflow_run:
     workflows: ["build-and-push"]
