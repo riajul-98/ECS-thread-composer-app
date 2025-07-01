@@ -16,7 +16,7 @@ terraform {
 
   # Initialise S3 bucket as backend
   backend "s3" {
-    bucket = "threat-model-app"
+    bucket = "threat-model-app-ecs"
     key    = "terraform.tfstate"
     region = "eu-west-2"
 
