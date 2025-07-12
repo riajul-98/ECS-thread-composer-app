@@ -15,6 +15,11 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
+    - name: Install dependencies
+      run: |
+        cd app
+        npm install
+
     - name: Unit test
       run: |
         cd app
