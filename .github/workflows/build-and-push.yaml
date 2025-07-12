@@ -8,12 +8,15 @@ permissions:
   security-events: write
 
 jobs:
-  build-and-push:
+  test-build-and-push:
     runs-on: ubuntu-latest
     steps:
 
     - name: Checkout code
       uses: actions/checkout@v2
+
+    - name: Unit test
+      run: npm test
 
     - name: ECR Login
       uses: docker/login-action@v3
@@ -30,7 +33,7 @@ jobs:
 
   Trivvy-scan:
     name: Run Trivy Vulnerability Scan
-    needs: build-and-push
+    needs: test-build-and-push
     runs-on: ubuntu-latest
     steps:
 
